@@ -30,7 +30,7 @@ of November 2026. From now on we'll go back to monthly updates.
 * **Iterators.** Iterators are now supported in Aeneas. In particular we now have: `Iterator`, `IntoIterator`, `DoubleEndedIterator`, `FromIterator`/`collect`, `Sum`, `Product` and `Extend`, with iterators over slices, arrays, `Vec`s, ranges, `ChunksExact` and `str::Chars`, and the `Map`, `Enumerate`, `Take`, `Rev`, `Zip` and `StepBy` adapters. `for` loops over these now translate and can be verified end to end (@sonmarcho, @R1kM);
 * **`#decompose`.** A new command splits a large generated function into auxiliary definitions, chosen by patterns such as a range of `let`s or a branch of a `match`, and proves an equation relating the original function to the pieces, so that each can be verified separately (@sonmarcho, [#911](https://github.com/AeneasVerif/aeneas/pull/911));
 * **Much more general symbolic execution.** Joins and loops were reworked: nested borrows in function signatures and loops, and mutable borrows inside shared borrows, are now supported. Loops are extracted as a `loop` combinator over a separate loop-body definition (@sonmarcho);
-* **More of Rust.** `dyn` trait objects, function pointers, closures and the `Fn*` traits, stateful globals, `'static` references, loops in constants and, in a preliminary form, higher-ranked trait bounds are now supported (@sonmarcho);
+* **More of Rust.** preliminary support of `dyn` trait objects, function pointers, closures and the `Fn*` traits, stateful globals, `'static` references, loops in constants and, in a preliminary form, higher-ranked trait bounds are now supported (@sonmarcho);
 * **`progress` is now `step`.** Specifications can be written as Hoare triples `f x ⦃ y => post ⦄`, preconditions can be discharged with `grind`, and post-conditions can be inferred (@sonmarcho, @andricicezar, @R1kM, @mpenciak);
 * **Faster, and easier to install.** Translation now runs in parallel by default, and prebuilt releases of Aeneas, including a precompiled Lean library, are published on GitHub (@sonmarcho, @joshlf, @Nadrieril);
 * **Lean module system.** The Lean library now uses the Lean module system (@oliver-butterley), and the Lean toolchain went from v4.19.0 to v4.36.0-rc2.
@@ -104,7 +104,7 @@ of November 2026. From now on we'll go back to monthly updates.
 
 **Symbolic execution and translation**
 * @sonmarcho reworked joins and the translation of loops, and added support for nested shared borrows in signatures, nested borrows in loops and mutable borrows inside shared borrows; if a join fails, the code after a `match` is duplicated instead of failing;
-* @sonmarcho added support for `dyn` traits, function pointers and the built-in `Fn*` impls, closures, stateful globals, `'static` references and the `'static` region, loops in constants, the `Never` type and raw pointers, enums without variants, and preliminary support for higher-ranked trait bounds and `println!`. Drops are evaluated as no-ops;
+* @sonmarcho added support for `dyn` traits, function pointers and the built-in `Fn*` impls, closures, stateful globals, `'static` references and the `'static` region, loops in constants, the `Never` type and raw pointers, enums without variants, and preliminary support for higher-ranked trait bounds and `println!`. Drops are currently evaluated as no-ops, proper support is on its way;
 * Loops are extracted as a `loop` combinator over separate loop-body definitions, with `-loops-to-rec` to keep the old recursive functions (@sonmarcho);
 * `cfg`-dependent code can be extracted for several targets at once (@sonmarcho);
 * Promoted constants are now inlined in the pure micro-passes instead of in LLBC;
@@ -121,7 +121,7 @@ of November 2026. From now on we'll go back to monthly updates.
 **Lean tactics and proofs**
 * `progress` was renamed to `step`, with deprecation aliases, and gained `step* n`, names taken from `let`-bindings, and `∃` in post-conditions (@sonmarcho);
 * Specifications can be written as Hoare triples `e ⦃ x => P ⦄` (@sonmarcho, @andricicezar);
-* `step` discharges preconditions with `grind` (@R1kM, @sonmarcho);
+* `step` discharges preconditions with `grind` and the grind state is threaded for performance (@R1kM, @sonmarcho);
 * @mpenciak added post-condition inference and a new `do` elaborator;
 * @abentkamp generates `mvcgen` specs from `@[step]` theorems, and allowed divergence for partial correctness;
 * @jeprinz added registrable specification predicates with a partial-fixpoint induction tactic, and coinductive ITrees; @andricicezar generalised `step` to registered specifications, let specs register their own discharge tactic, and added generic weakest preconditions for ITrees;
