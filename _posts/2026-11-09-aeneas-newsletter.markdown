@@ -9,11 +9,10 @@ categories: newsletter
 The last issue of this newsletter went out in July 2025, fifteen issues later we're back. 
 
 The projects have been accelerating whilst the newsletter was sidelined. 
-Between the end of July 2025 and the end of October 2026, Aeneas grew from about 73k to 126k lines of code, and Charon more than doubled, from about 42k to 91k.
 
-![Lines of code at the end of each month for Aeneas and Charon]({{ "/assets/newsletter/2026-11/lines-of-code.svg" | relative_url }})
+![Lines of code at the end of each month for Charon and for Aeneas, split into its OCaml translator and its Lean library]({{ "/assets/newsletter/2026-11/lines-of-code.svg" | relative_url }})
 
-Over the same period, Aeneas went from 365 to 885 merged pull requests and from 98 to 220 closed issues, and Charon from 530 to 1,040 merged pull requests and from 182 to 401 closed issues.
+During this period, Aeneas went from 365 to 885 merged pull requests and from 98 to 220 closed issues, and Charon from 530 to 1,040 merged pull requests and from 182 to 401 closed issues.
 
 ![Cumulative issues closed and pull requests merged for Aeneas and Charon]({{ "/assets/newsletter/2026-11/issues-and-prs.svg" | relative_url }})
 
